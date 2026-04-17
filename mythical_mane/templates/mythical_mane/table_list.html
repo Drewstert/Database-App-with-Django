@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ table_title }} | Mythical Mane</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+    <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <section class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-black/30 backdrop-blur">
+            <header class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                    <a href="/tables/" class="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300 hover:text-cyan-200">All Tables</a>
+                    <h1 class="mt-2 text-3xl font-bold tracking-tight">{{ table_title }}</h1>
+                    <p class="mt-2 text-sm text-slate-300">Showing up to {{ row_limit }} rows from table '{{ table_slug }}'.</p>
+                </div>
+                <div class="rounded-2xl border border-cyan-400/20 bg-cyan-500/10 px-4 py-2 text-sm text-cyan-100">
+                    {{ row_count }} row{{ row_count|pluralize }}
+                </div>
+            </header>
+
+            <div class="overflow-hidden rounded-2xl border border-white/10">
+                <table class="min-w-full divide-y divide-white/10">
+                    <thead class="bg-white/5">
+                        <tr>
+                            {% for column in columns %}
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-300">{{ column.label }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/10 bg-slate-900/60">
+                        {% for row in rows %}
+                            <tr class="transition-colors hover:bg-white/5">
+                                {% for value in row %}
+                                    <td class="px-4 py-3 text-sm text-slate-200">{{ value }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="{{ columns|length }}" class="px-4 py-10 text-center text-sm text-slate-400">No data found for this table.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
