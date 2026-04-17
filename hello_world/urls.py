@@ -20,11 +20,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from hello_world.core import views as core_views
 from mythical_mane.views import patient_list, table_index, table_list
 
 urlpatterns = [
-    path("", core_views.index),
+    path("", patient_list, name="home"),
     path("patients/", patient_list, name="patient-list"),
     path("tables/", table_index, name="table-index"),
     path("tables/<slug:table_slug>/", table_list, name="table-list"),
